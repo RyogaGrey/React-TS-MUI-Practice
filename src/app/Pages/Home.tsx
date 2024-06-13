@@ -1,12 +1,20 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { Box, Typography, Button, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { faker } from '@faker-js/faker';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
+// Для первой таблицы
 type ContentItem = {
   text: string;
   status?: string;
   date: string;
   email: string;
+};
+
+// Для второй таблицы
+type SimpleContentItem = {
+  text: string;
 };
 
 type ScrollAreaProps = {
@@ -16,10 +24,8 @@ type ScrollAreaProps = {
   maxHeight: string;
   onFilter?: () => void;
   onSortByDate?: () => void;
-};
-
-type SimpleContentItem = {
-  text: string;
+  sortOrder?: boolean; // true для восходящей, false для нисходящей сортировки
+  isSorted?: boolean; // для отображения стрелочки сортировки, не появиться до сортировки
 };
 
 type SimpleScrollAreaProps = {
@@ -29,7 +35,7 @@ type SimpleScrollAreaProps = {
   maxHeight: string;
 };
 
-const ScrollArea: React.FC<ScrollAreaProps> = React.memo(({ title, content, width, maxHeight, onFilter, onSortByDate }) => {
+const ScrollArea: React.FC<ScrollAreaProps> = React.memo(({ title, content, width, maxHeight, onFilter, onSortByDate, sortOrder, isSorted }) => {
   return (
     <Box sx={{
       border: '1px solid #dbdbdb8e',
@@ -64,7 +70,14 @@ const ScrollArea: React.FC<ScrollAreaProps> = React.memo(({ title, content, widt
             <TableRow>
               <TableCell>Компонент</TableCell>
               <TableCell>Статусы</TableCell>
-              <TableCell>Дата</TableCell>
+              <TableCell onClick={onSortByDate} sx={{ cursor: 'pointer' }}>
+                Дата
+                {isSorted && (
+                  sortOrder
+                    ? <ArrowUpwardIcon fontSize="small" />
+                    : <ArrowDownwardIcon fontSize="small" />
+                )}
+              </TableCell>
               <TableCell>Почта</TableCell>
             </TableRow>
           </TableHead>
@@ -133,21 +146,26 @@ const Home: React.FC = () => {
   const [count, setCount] = useState(0);
   const [filterPassed, setFilterPassed] = useState(false);
   const [sortByDate, setSortByDate] = useState(false);
+  const [sortOrder, setSortOrder] = useState<boolean | undefined>(undefined); // undefined для начального состояния
+  const [isSorted, setIsSorted] = useState(false); // состояние для отслеживания, была ли выполнена сортировка
 
   const content1 = useMemo(() => Array.from({ length: 50 }, (_, i) => ({
     text: `Хранилище 1 - Компонент №${i + 1}`,
     status: Math.random() > 0.6 ? 'passed' : 'failed',
-    date: faker.date.recent().toLocaleDateString(),
+    date: faker.date.past().toDateString(), // Преобразуем дату в строку, TODO: посмотреть локаль
     email: faker.internet.email(),
   })), []);
 
   const filteredContent1 = useMemo(() => {
     const filtered = filterPassed ? content1.filter(item => item.status === 'passed') : content1;
-    if (sortByDate) {
-      return filtered.slice().sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    if (sortByDate && sortOrder !== undefined) {
+      return filtered.slice().sort((a, b) => sortOrder
+        ? new Date(a.date).getTime() - new Date(b.date).getTime()
+        : new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
     }
     return filtered;
-  }, [filterPassed, sortByDate, content1]);
+  }, [filterPassed, sortByDate, sortOrder, content1]);
 
   const content2 = useMemo(() => Array.from({ length: 50 }, (_, i) => ({
     text: `Хранилище 2 - Компонент №${i + 1}`
@@ -158,14 +176,25 @@ const Home: React.FC = () => {
   }, []);
 
   const handleSortByDate = useCallback(() => {
-    setSortByDate(prev => !prev);
+    setSortByDate(true);
+    setSortOrder(prev => prev === undefined ? true : !prev); // Меняем порядок сортировки
+    setIsSorted(true);
   }, []);
 
   return (
     <Box sx={{ padding: '20px', gap: '20px' }}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
-          <ScrollArea title="Зафиксированный 1" content={filteredContent1} width="100%" maxHeight="800px" onFilter={handleFilter} onSortByDate={handleSortByDate} />
+          <ScrollArea
+            title="Зафиксированный 1"
+            content={filteredContent1}
+            width="100%"
+            maxHeight="800px"
+            onFilter={handleFilter}
+            onSortByDate={handleSortByDate}
+            sortOrder={sortOrder}
+            isSorted={isSorted}
+          />
         </Grid>
         <Grid item xs={12} md={4}>
           <SimpleScrollArea title="Зафиксированный 2" content={content2} width="100%" maxHeight="800px" />
