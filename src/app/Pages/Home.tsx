@@ -23,7 +23,7 @@ const Home: React.FC = () => {
   const filteredContent1 = useMemo(() => {
     const filtered = filterPassed ? content1.filter(item => item.status === 'passed') : content1;
     if (sortOrder) {
-      return filtered.slice().sort((a, b) => sortOrder === 'asc'
+      return filtered.slice().sort((a, b) => sortOrder === 'desc'
         ? new Date(a.date).getTime() - new Date(b.date).getTime()
         : new Date(b.date).getTime() - new Date(a.date).getTime()
       );
