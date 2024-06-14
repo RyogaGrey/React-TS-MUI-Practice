@@ -14,7 +14,7 @@ const Home: React.FC = () => {
   const content1 = useMemo(() => Array.from({ length: 50 }, (_, i) => ({
     text: 'Хранилище 1 - Компонент №' + (i + 1),
     status: Math.random() > 0.6 ? 'passed' : 'failed',
-    date: faker.date.past().toDateString(), // Преобразуем дату в строку
+    date: faker.date.past().toDateString(), // Преобразуем дату в строку, посмотреть toLocaleDateString
     email: faker.internet.email(),
   })), []);
 
