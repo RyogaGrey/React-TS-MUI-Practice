@@ -24,10 +24,6 @@ const AddRowDialog: React.FC<AddRowDialogProps> = ({ open, onClose, onAddRow }) 
       errors.text = 'Поле "Компонент" не может быть пустым';
       valid = false;
     }
-    if (!['passed', 'failed'].includes(newRow.status)) {
-      errors.status = 'Статус должен быть "passed" или "failed"';
-      valid = false;
-    }
 
     setFormErrors(errors);
     return valid;
