@@ -46,7 +46,7 @@ const ScrollArea: React.FC<ScrollAreaProps> = React.memo(({ title, content, widt
           {onFilter && <Button variant="contained" color="primary" onClick={onFilter}>Сдано</Button>}
         </Box>
       </Box>
-      <TableContainer component={Paper} sx={{ overflowY: 'scroll', maxHeight: '100%' }}>
+      <TableContainer sx={{ overflowY: 'scroll', maxHeight: '100%' }}>
         <Table stickyHeader>
           <TableHead>
             <TableRow>

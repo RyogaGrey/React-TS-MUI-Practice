@@ -37,7 +37,7 @@ const SimpleScrollArea: React.FC<SimpleScrollAreaProps> = React.memo(({ title, c
           {title}
         </Typography>
       </Box>
-      <TableContainer component={Paper} sx={{ overflowY: 'scroll', maxHeight: '100%' }}>
+      <TableContainer sx={{ overflowY: 'scroll', maxHeight: '100%' }}>
         <Table stickyHeader>
           <TableHead>
             <TableRow>
