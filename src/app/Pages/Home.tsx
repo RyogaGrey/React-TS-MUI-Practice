@@ -4,6 +4,7 @@ import { faker } from '@faker-js/faker';
 import ScrollArea from '../../components/ScrollArea';
 import SimpleScrollArea from '../../components/SimpleScrollArea';
 import AddRowDialog from '../../components/AddRowForm';
+import AddIcon from '@mui/icons-material/Add';
 
 const Home: React.FC = () => {
   const [count, setCount] = useState(0);
@@ -69,7 +70,7 @@ const Home: React.FC = () => {
             onSortByDate={handleSortByDate}
             sortOrder={sortOrder}
           />
-        <Button variant="contained" color="primary" onClick={handleOpen}>Добавить строку</Button>
+        <Button startIcon={<AddIcon />} variant="contained" color="primary" onClick={handleOpen}>Добавить строку</Button>
         </Grid>
         <Grid item xs={12} md={4}>
           <SimpleScrollArea title="Зафиксированный 2" content={content2} width="100%" maxHeight="800px" />

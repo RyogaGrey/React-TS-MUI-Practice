@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, MenuItem } from '@mui/material';
+import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, MenuItem} from '@mui/material';
 
 type AddRowDialogProps = {
   open: boolean;
@@ -71,8 +71,8 @@ const AddRowDialog: React.FC<AddRowDialogProps> = ({ open, onClose, onAddRow }) 
           error={!!formErrors.status}
           helperText={formErrors.status}
         >
-          <MenuItem value="passed">passed</MenuItem>
-          <MenuItem value="failed">failed</MenuItem>
+          <MenuItem value="passed">Сдано</MenuItem>
+          <MenuItem value="failed">Провалено</MenuItem>
         </TextField>
         <TextField
           margin="dense"
