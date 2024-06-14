@@ -1,7 +1,5 @@
 import React from 'react';
-import { Box, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { Box, Button, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TableSortLabel } from '@mui/material';
 
 type ContentItem = {
   text: string;
@@ -17,11 +15,10 @@ type ScrollAreaProps = {
   maxHeight: string;
   onFilter?: () => void;
   onSortByDate?: () => void;
-  sortOrder?: boolean; // true для восходящей, false для нисходящей сортировки
-  isSorted?: boolean; // для скрытия стрелочки сортировки
+  sortOrder?: 'asc' | 'desc' | undefined;
 };
 
-const ScrollArea: React.FC<ScrollAreaProps> = React.memo(({ title, content, width, maxHeight, onFilter, onSortByDate, sortOrder, isSorted }) => {
+const ScrollArea: React.FC<ScrollAreaProps> = React.memo(({ title, content, width, maxHeight, onFilter, onSortByDate, sortOrder }) => {
   return (
     <Box sx={{
       border: '1px solid #dbdbdb8e',
@@ -47,7 +44,6 @@ const ScrollArea: React.FC<ScrollAreaProps> = React.memo(({ title, content, widt
         </Typography>
         <Box>
           {onFilter && <Button variant="contained" color="primary" onClick={onFilter}>Сдано</Button>}
-          {onSortByDate && <Button variant="contained" color="secondary" onClick={onSortByDate} sx={{ ml: 2 }}>Сортировать по дате</Button>}
         </Box>
       </Box>
       <TableContainer component={Paper} sx={{ overflowY: 'scroll', maxHeight: '100%' }}>
@@ -56,13 +52,14 @@ const ScrollArea: React.FC<ScrollAreaProps> = React.memo(({ title, content, widt
             <TableRow>
               <TableCell>Компонент</TableCell>
               <TableCell>Статусы</TableCell>
-              <TableCell onClick={onSortByDate} sx={{ cursor: 'pointer' }}>
-                Дата
-                {isSorted && (
-                  sortOrder
-                    ? <ArrowUpwardIcon fontSize="small" />
-                    : <ArrowDownwardIcon fontSize="small" />
-                )}
+              <TableCell sortDirection={sortOrder}>
+                <TableSortLabel
+                  active={!!sortOrder}
+                  direction={sortOrder}
+                  onClick={onSortByDate}
+                >
+                  Дата
+                </TableSortLabel>
               </TableCell>
               <TableCell>Почта</TableCell>
             </TableRow>
@@ -72,7 +69,7 @@ const ScrollArea: React.FC<ScrollAreaProps> = React.memo(({ title, content, widt
               <TableRow key={index}>
                 <TableCell>{item.text}</TableCell>
                 <TableCell>{item.status || ''}</TableCell>
-                <TableCell>{item.date}</TableCell>
+                <TableCell>{new Date(item.date).toLocaleDateString()}</TableCell>
                 <TableCell>{item.email}</TableCell>
               </TableRow>
             ))}
