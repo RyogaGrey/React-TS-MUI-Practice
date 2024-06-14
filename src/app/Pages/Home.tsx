@@ -69,6 +69,7 @@ const Home: React.FC = () => {
             onSortByDate={handleSortByDate}
             sortOrder={sortOrder}
           />
+        <Button variant="contained" color="primary" onClick={handleOpen}>Добавить строку</Button>
         </Grid>
         <Grid item xs={12} md={4}>
           <SimpleScrollArea title="Зафиксированный 2" content={content2} width="100%" maxHeight="800px" />
@@ -76,7 +77,6 @@ const Home: React.FC = () => {
       </Grid>
       <Box sx={{ display: 'flex', marginTop: '20px', gap: '20px' }}>
         <Button variant="contained" onClick={() => setCount(count + 1)}>Кнопочка</Button>
-        <Button variant="contained" color="primary" onClick={handleOpen}>Добавить строку</Button>
         <Typography sx={{ marginLeft: '20px' }}>
           Количество нажатий: {count}
         </Typography>
