@@ -8,7 +8,7 @@ type AddRowDialogProps = {
 };
 
 const AddRowDialog: React.FC<AddRowDialogProps> = ({ open, onClose, onAddRow }) => {
-  const [newRow, setNewRow] = useState({ text: '', status: 'passed', date: '', email: '' });
+  const [newRow, setNewRow] = useState({ text: '', status: 'passed', date: '', email: '@' });
   const [formErrors, setFormErrors] = useState<{ [key: string]: string | null }>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

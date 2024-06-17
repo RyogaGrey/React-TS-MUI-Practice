@@ -4,6 +4,8 @@ import Home from './Pages/Home';
 import About from './Pages/About';
 import { PageOne, PageTwo } from './Pages';
 import Test from './Pages/Test';
+import Profiles from './Pages/Profile';
+
 
 // Пример Context
 //const ThemeContext = React.createContext('light');
@@ -22,9 +24,10 @@ const aboutRoute: RouteType = { path: "about", element: <About /> };
 const pageOneRoute: RouteType = { path: "one", element: <PageOne /> };
 const pageTwoRoute: RouteType = { path: "two", element: <PageTwo /> };
 const testRoute: RouteType = { path: "test", element: <Test /> };
+const profRoute: RouteType = { path: "profile", element: <Profiles />}
 const errRoute: RouteType = {path: "*", element: homeRoute.element}
 
-const routes: RouteType[] = [homeRoute, aboutRoute, pageOneRoute, pageTwoRoute, testRoute, errRoute];
+const routes: RouteType[] = [homeRoute, aboutRoute, pageOneRoute, pageTwoRoute, testRoute, errRoute, profRoute];
 
 const App: React.FC = () => {
   return (

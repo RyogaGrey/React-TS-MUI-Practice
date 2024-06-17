@@ -68,6 +68,7 @@ const Home: React.FC = () => {
             maxHeight="800px"
             onFilter={handleFilter}
             onSortByDate={handleSortByDate}
+            //onSortByName={handleSortByName}
             sortOrder={sortOrder}
           />
         <Button startIcon={<AddIcon />} variant="contained" color="primary" onClick={handleOpen}>Добавить строку</Button>

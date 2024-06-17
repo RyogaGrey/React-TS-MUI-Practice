@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box,
+import {
+  Box,
   Button,
   Typography,
   Table,
@@ -8,7 +9,8 @@ import { Box,
   TableContainer,
   TableHead,
   TableRow,
-  TableSortLabel } from '@mui/material';
+  TableSortLabel
+} from '@mui/material';
 
 type ContentItem = {
   text: string;
@@ -24,10 +26,24 @@ type ScrollAreaProps = {
   maxHeight: string;
   onFilter?: () => void;
   onSortByDate?: () => void;
+  onSortByName?: () => void;
+  onSortByEmail?: () => void; // Add callback for sorting by email
   sortOrder?: 'asc' | 'desc' | undefined;
+  sortOrderEmail?: 'asc' | 'desc' | undefined; // Sorting order for email
 };
 
-const ScrollArea: React.FC<ScrollAreaProps> = React.memo(({ title, content, width, maxHeight, onFilter, onSortByDate, sortOrder }) => {
+const ScrollArea: React.FC<ScrollAreaProps> = React.memo(({
+  title,
+  content,
+  width,
+  maxHeight,
+  onFilter,
+  onSortByDate,
+  onSortByName,
+  onSortByEmail, // Receive onSortByEmail callback
+  sortOrder,
+  sortOrderEmail // Receive sortOrderEmail state
+}) => {
   return (
     <Box sx={{
       border: '1px solid #dbdbdb8e',
@@ -62,15 +78,15 @@ const ScrollArea: React.FC<ScrollAreaProps> = React.memo(({ title, content, widt
               <TableCell>Компонент</TableCell>
               <TableCell>Статусы</TableCell>
               <TableCell sortDirection={sortOrder}>
-                <TableSortLabel
-                  active={!!sortOrder}
-                  direction={sortOrder}
-                  onClick={onSortByDate}
-                >
+                <TableSortLabel active={!!sortOrder} direction={sortOrder} onClick={onSortByDate}>
                   Дата
                 </TableSortLabel>
               </TableCell>
-              <TableCell>Почта</TableCell>
+              <TableCell sortDirection={sortOrderEmail}>
+                <TableSortLabel active={!!sortOrderEmail} direction={sortOrderEmail} onClick={onSortByEmail}>
+                  Почта
+                </TableSortLabel>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
