@@ -1,11 +1,31 @@
-import React from 'react';
-import UserTabs from '../../components/UserTab';
+
+import React, { Suspense, useState, useEffect } from 'react';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
+import UserSettings from '../../components/UserSettings';
+import Dashboard from '../../components/Dashboard';
+//import { getThemeFromLocalStorage, saveThemeToLocalStorage } from './utils/theme';
 
 const Profiles: React.FC = () => {
+  const [theme, setTheme] = useState(createTheme({
+    palette: {
+      mode: /*getThemeFromLocalStorage() ||*/ 'light',
+    },
+  }));
+
+  const handleThemeChange = (newTheme: 'light' | 'dark') => {
+    setTheme(createTheme({ palette: { mode: newTheme } }));
+    /*saveThemeToLocalStorage(newTheme);*/
+  };
+
   return (
-    <div className="Profiles">
-      <UserTabs />
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Suspense fallback={<div>Loading...</div>}>
+        <UserSettings onThemeChange={handleThemeChange} />
+        <Dashboard />
+      </Suspense>
+    </ThemeProvider>
   );
 };
 

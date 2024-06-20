@@ -1,3 +1,16 @@
+# Используемые компоненты:
+
+React с TypeScript для создания компонентов.
+Material-UI (MUI) для стилизации и темизации.
+Chart.js для построения графиков.
+React-Grid-Layout для управления расположением дашбордов.
+React-i18next для локализации.
+React.lazy и Suspense для lazy loading.
+StyledComponents для минимизации CSS файлов.
+LocalStorage или IndexedDB для сохранения настроек пользователя.
+Vite для тестирования.
+Docker для контейнеризации приложения и логирования.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

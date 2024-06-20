@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { createContext, useContext } from 'react';
+import { Button, ThemeProvider, createTheme } from '@mui/material';
+import { Translate } from '@mui/icons-material';
 
-const ThemeContext = React.createContext('light');
+const ThemeContext = createContext('light');
 
 const Test: React.FC = () => {
   return (
@@ -10,7 +12,7 @@ const Test: React.FC = () => {
   );
 };
 
-const Toolbar = () => {
+const Toolbar: React.FC = () => {
   return (
     <div>
       <ThemedButton />
@@ -18,12 +20,26 @@ const Toolbar = () => {
   );
 };
 
-const ThemedButton = () => {
-  const theme = React.useContext(ThemeContext);
+const ThemedButton: React.FC = () => {
+  const theme = useContext(ThemeContext);
+
+  const muiTheme = createTheme({
+    palette: {
+      mode: theme === 'dark' ? 'dark' : 'light',
+    },
+  });
+
   return (
-    <button style={{ background: theme === 'dark' ? '#333' : '#FFF', color: theme === 'dark' ? '#FFF' : '#000' }}>
-      Текст, стилизированный через ThemeContext
-    </button>
+    <ThemeProvider theme={muiTheme}>
+      <Button startIcon={<Translate />} 
+        style={{ 
+          background: theme === 'dark' ? '#333' : '#FFF', 
+          color: theme === 'dark' ? '#FFF' : '#000' 
+        }}
+      >
+        Текст, стилизированный через ThemeContext  
+      </Button>
+    </ThemeProvider>
   );
 };
 

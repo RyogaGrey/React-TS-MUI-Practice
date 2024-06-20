@@ -49,17 +49,17 @@ const UserTabs: React.FC = () => {
             xAxis={[
             {
                 id: 'barCategories',
-                data: ['bar A','bar AB','bar BA','bar AC','bar Ar', 'bar B', 'bar C'],
+                data: ['bar A','bar B','bar C','bar D','bar E', 'bar F', 'bar G'],
                 scaleType: 'band',
             },
             ]}
             series={[
             {
-                data: [2, 5, 2, 5, 2, 5, 3],
+                data: [Math.sin(0.5), Math.sin(1), Math.sin(2), Math.sin(2.5), Math.sin(3), Math.sin(3.5), Math.sin(4)],
             },
             ]}
             width={1000}
-            height={300}
+            height={600}
         />
         <Typography> Содержимое первой вкладки </Typography>
       </TabPanel>
