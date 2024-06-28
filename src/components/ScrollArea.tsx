@@ -40,9 +40,9 @@ const ScrollArea: React.FC<ScrollAreaProps> = React.memo(({
   onFilter,
   onSortByDate,
   onSortByName,
-  onSortByEmail, // Receive onSortByEmail callback
+  onSortByEmail, // onSortByEmail callback
   sortOrder,
-  sortOrderEmail // Receive sortOrderEmail state
+  sortOrderEmail // sortOrderEmail state
 }) => {
   return (
     <Box sx={{

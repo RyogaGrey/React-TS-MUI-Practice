@@ -1,49 +1,75 @@
-
 import React, { Suspense, useState, useEffect } from 'react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { CssBaseline } from '@mui/material';
+import { ThemeProvider, createTheme, CssBaseline, Typography, Box, Tabs, Tab } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import UserSettings from '../../components/UserSettings';
 import Dashboard from '../../components/Dashboard';
-import { getThemeFromLocalStorage, saveThemeToLocalStorage } from '../../utiles/theme';
+import { getStoredTheme, setStoredTheme} from '../../utiles/theme';
+import ThemeSwitcher from '../../components/ThemeSwitcher';
+import ChartComponent from '../../components/ChartComponent';
+import UserDashboardSettings from '../../components/UserDashboardSettings';
+import DataTable from '../../components/DataTable';
+import redTheme from '../../theme/redTheme';
+import grayTheme from '../../theme/grayTheme';
+import { getUserSettings, saveUserSettings } from '../../utiles/userSettings';
+import { getFeatureToggles } from '../../utiles/featureToggle';
+
+const BigComponent = React.lazy(() => import('../../components/BigComponent'));
 
 const Profiles: React.FC = () => {
-  const [theme, setTheme] = useState(createTheme({
-    palette: {
-      mode: getThemeFromLocalStorage() || 'light',
-    },
-  }));
+  const { t } = useTranslation();
+  const storedTheme = getStoredTheme();
+  const userSettings = getUserSettings();
+  const [theme, setTheme] = useState<'red' | 'gray'>(storedTheme || 'red');
+  const [muiTheme, setMuiTheme] = useState(createTheme(theme === 'red' ? redTheme : grayTheme));
+  const [tabIndex, setTabIndex] = useState(0);
+  const [featureToggles, setFeatureToggles] = useState(getFeatureToggles());
 
-  const handleThemeChange = (newTheme: 'light' | 'dark') => {
-    setTheme(createTheme({ palette: { mode: newTheme } }));
-    saveThemeToLocalStorage(newTheme);
+  useEffect(() => {
+    setMuiTheme(createTheme(theme === 'red' ? redTheme : grayTheme));
+  }, [theme]);
+
+  const handleThemeChange = () => {
+    const newTheme = theme === 'red' ? 'gray' : 'red';
+    setTheme(newTheme);
+    setStoredTheme(newTheme);
+  };
+
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setTabIndex(newValue);
+  };
+
+  const handleUserSettingsChange = (settings: any) => {
+    saveUserSettings(settings);
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={muiTheme}>
       <CssBaseline />
+      <Typography sx={{ marginLeft: '20px' }}>
+        {t('welcome')}
+      </Typography>
+      <ThemeSwitcher currentTheme={theme} onChange={handleThemeChange} />
+      <Tabs value={tabIndex} onChange={handleTabChange}>
+        <Tab label="Dashboard" />
+        <Tab label="Settings" />
+        <Tab label="Data" />
+      </Tabs>
+      <Box sx={{ p: 3 }}>
+        {tabIndex === 0 && (
+          <Suspense fallback={<div>Loading Big Component...</div>}>
+            <BigComponent />
+            {featureToggles.featureA && <ChartComponent />}
+            <Dashboard />
+          </Suspense>
+        )}
+        {tabIndex === 1 && <UserDashboardSettings settings={userSettings} onChange={handleUserSettingsChange} />}
+        {tabIndex === 2 && <DataTable />}
+      </Box>
       <Suspense fallback={<div>Loading...</div>}>
         <UserSettings onThemeChange={handleThemeChange} />
-        <Dashboard />
       </Suspense>
     </ThemeProvider>
   );
 };
 
 export default Profiles;
-
-// TODO:
-// Графики Chart
-// Вкладка пользователя (настройки дашборда (запоминать положение дашбордов))
-// Создать большой компонент (чтобы много весил в bundle).
-// Загружать только при первом входе на стр. (LazyLoading)
-// функция + тесты (viteTest) ...
-// после отработки тестов сделать case демонстрация полезности кейса 6 темизация.
-// Min 2 темы(красный, белый, серый)(другие для второй темы)
-// Тема должна выбираться в зависимости от настроек пользователя (на пк или браузере)
-// Тема не должна слетать после перезагрузки страницы
-// автоматическая темизация по switch (отключение / включение)
-// локализация (закреп)
-// *минимум css файлов. StyledComponents (MUI) 12 react managing State (на странице юзера)
-// persistance (сохранение настроек пользователя)
-// front логирование (отлов любых ошибок + отсылка на api (docker container + прометей))
-// featureToggle (отображение/скрытие элементов на странице в профиле user'a) создать 2к данных + scroll. Возможность редактировать записи. docker container!

@@ -1,8 +1,7 @@
-export function getThemeFromLocalStorage(): 'light' | 'dark' {
-  const theme = localStorage.getItem('theme');
-  return theme === 'dark' ? 'dark' : 'light';
-}
+export const getStoredTheme = (): 'red' | 'gray' | null => {
+  return localStorage.getItem('theme') as 'red' | 'gray' | null;
+};
 
-export function saveThemeToLocalStorage(theme: 'light' | 'dark'): void {
+export const setStoredTheme = (theme: 'red' | 'gray') => {
   localStorage.setItem('theme', theme);
-}
+};
