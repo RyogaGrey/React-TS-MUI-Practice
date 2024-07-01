@@ -10,7 +10,7 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ currentTheme, onChange })
   return (
     <FormControlLabel
       control={<Switch checked={currentTheme === 'gray'} onChange={onChange} />}
-      label="Dark Mode"
+      label="Тёмный режим"
     />
   );
 };

@@ -22,7 +22,7 @@ const Profiles: React.FC = () => {
   const [theme, setTheme] = useState<'red' | 'gray'>(storedTheme || 'red');
   const [muiTheme, setMuiTheme] = useState(createTheme(theme === 'red' ? redTheme : grayTheme));
   const [tabIndex, setTabIndex] = useState(0);
-  const [featureToggles, setFeatureToggles] = useState(getFeatureToggles());
+  const [featureToggles] = useState(getFeatureToggles());
 
   useEffect(() => {
     setMuiTheme(createTheme(theme === 'red' ? redTheme : grayTheme));
@@ -50,9 +50,9 @@ const Profiles: React.FC = () => {
       </Typography>
       <ThemeSwitcher currentTheme={theme} onChange={handleThemeChange} />
       <Tabs value={tabIndex} onChange={handleTabChange}>
-        <Tab label="Dashboard" />
-        <Tab label="Settings" />
-        <Tab label="Data" />
+        <Tab label="Дэшборд" />
+        <Tab label="Настройки" />
+        <Tab label="Данные" />
       </Tabs>
       <Box sx={{ p: 3 }}>
         {tabIndex === 0 && (

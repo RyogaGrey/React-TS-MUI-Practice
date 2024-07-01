@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, TextField, Button, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Grid } from '@mui/material';
-import { saveUserSettings, getUserSettings } from '../utiles/userSettings';
+import { saveUserSettings } from '../utiles/userSettings';
 
 interface UserDashboardSettingsProps {
   settings: any;
