@@ -17,6 +17,7 @@ const UserSettings: React.FC<UserSettingsProps> = ({ onThemeChange }) => {
     <div>
       <Button onClick={() => changeLanguage('en')}>EN</Button>
       <Button onClick={() => changeLanguage('ru')}>RU</Button>
+      <Button onClick={() => changeLanguage('es')}>ES</Button>
     </div>
   );
 };
