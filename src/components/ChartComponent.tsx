@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -20,7 +20,8 @@ ChartJS.register(
 );
 
 const ChartComponent: React.FC = () => {
-  
+  const chartRef = useRef<ChartJS | null>(null);
+
   const generateRandomData = (count: number) => {
     return Array.from({ length: count }, () => Math.round(Math.random() * 10 - 2));
   };
@@ -57,7 +58,28 @@ const ChartComponent: React.FC = () => {
     },
   };
 
-  return <Bar data={data1} options={options} />;
+  useEffect(() => {
+    if (chartRef.current) {
+      chartRef.current.destroy();
+    }
+
+    const ctx = document.getElementById('myChart') as HTMLCanvasElement;
+    if (ctx) {
+      chartRef.current = new ChartJS(ctx, {
+        type: 'bar',
+        data: data1,
+        options: options,
+      });
+    }
+
+    return () => {
+      if (chartRef.current) {
+        chartRef.current.destroy();
+      }
+    };
+  }, [data1, options]);
+
+  return <canvas id="myChart" />;
 };
 
 export default ChartComponent;

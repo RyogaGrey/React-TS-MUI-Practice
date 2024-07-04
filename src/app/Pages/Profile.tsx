@@ -3,7 +3,7 @@ import { ThemeProvider, createTheme, CssBaseline, Typography, Box, Tabs, Tab } f
 import { useTranslation } from 'react-i18next';
 import UserSettings from '../../components/UserSettings';
 import Dashboard from '../../components/Dashboard';
-import { getStoredTheme, setStoredTheme} from '../../utiles/theme';
+import { getStoredTheme, setStoredTheme } from '../../utiles/theme';
 import ThemeSwitcher from '../../components/ThemeSwitcher';
 import ChartComponent from '../../components/ChartComponent';
 import UserDashboardSettings from '../../components/UserDashboardSettings';
@@ -56,7 +56,7 @@ const Profiles: React.FC = () => {
       </Tabs>
       <Box sx={{ p: 3 }}>
         {tabIndex === 0 && (
-          <Suspense fallback={<div>Loading Big Component...</div>}>
+          <Suspense fallback={<div>Загрузка компонента...</div>}>
             <BigComponent />
             {featureToggles.featureA && <ChartComponent />}
             <Dashboard />
@@ -65,7 +65,7 @@ const Profiles: React.FC = () => {
         {tabIndex === 1 && <UserDashboardSettings settings={userSettings} onChange={handleUserSettingsChange} />}
         {tabIndex === 2 && <DataTable />}
       </Box>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>Загрузка...</div>}>
         <UserSettings onThemeChange={handleThemeChange} />
       </Suspense>
     </ThemeProvider>
