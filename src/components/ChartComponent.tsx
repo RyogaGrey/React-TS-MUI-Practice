@@ -25,7 +25,7 @@ const ChartComponent: React.FC = () => {
     return Array.from({ length: count }, () => Math.round(Math.random() * 10 - 2));
   };
 
-  const data = {
+  const data1 = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
       {
@@ -33,7 +33,7 @@ const ChartComponent: React.FC = () => {
         data: generateRandomData(7),
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1,
+        borderWidth: 2,
         hoverBackgroundColor: 'rgba(75, 192, 192, 0.4)',
         hoverBorderColor: 'rgba(75, 192, 192, 1)',
         pointBackgroundColor: 'rgba(75, 192, 192, 1)',
@@ -52,12 +52,12 @@ const ChartComponent: React.FC = () => {
       },
       title: {
         display: true,
-        text: 'Chart.js Bar Chart',
+        text: 'Chart.js столбчатая диаграмма',
       },
     },
   };
 
-  return <Bar data={data} options={options} />;
+  return <Bar data={data1} options={options} />;
 };
 
 export default ChartComponent;
