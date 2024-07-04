@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './index.css'; // Глобальные стили
 import App from './app/index';
-import reportWebVitals from './reportWebVitals';
-import './i18n'; 
+import reportWebVitals from './reportWebVitals'; // Производительность
+import './i18n'; // Интернационализация
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -12,4 +12,4 @@ root.render(
   </React.StrictMode>
 );
 
-reportWebVitals();
+reportWebVitals(); // Отправка метрик

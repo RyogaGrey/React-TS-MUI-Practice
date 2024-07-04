@@ -1,4 +1,3 @@
-// src/utils/logger.ts
 export const logError = (error: any) => {
     console.error(error);
   
@@ -13,4 +12,5 @@ export const logError = (error: any) => {
       }),
     });
   };
+
   

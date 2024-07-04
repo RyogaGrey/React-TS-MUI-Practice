@@ -8,4 +8,4 @@ scrape_configs:
 
   - job_name: 'react_app'
     static_configs:
-      - targets: ['react_app:3000']  # порт
+      - targets: ['react_app:3000']  # порт сервера react

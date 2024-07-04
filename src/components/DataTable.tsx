@@ -23,8 +23,14 @@ const generateData = (count: number) => {
 const DataTable: React.FC = () => {
   const [data, setData] = useState(generateData(2000));
 
+  // const handleEdit = (id: number, key: string, value: string) => {
+  //   setData(data.map(item => (item.id === id ? { ...item, [key]: value } : item)));
+  // };
+
   const handleEdit = (id: number, key: string, value: string) => {
-    setData(data.map(item => (item.id === id ? { ...item, [key]: value } : item)));
+    setData(prevData =>
+      prevData.map(item => (item.id === id ? { ...item, [key]: value } : item))
+    );
   };
 
   return (
