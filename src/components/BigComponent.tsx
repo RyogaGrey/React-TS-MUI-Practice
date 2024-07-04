@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Box, Typography, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { Line } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
 
 const generateData = () => {
-  return Array.from({ length: 12 }, () => faker.datatype.number({ min: 0, max: 1000 }));
+  return Array.from({ length: 12 }, () => faker.datatype.number({ min: 100, max: 1000 }));
 };
 
 const BigComponent: React.FC = () => {
   const [data, setData] = useState<number[]>([]);
-  
+
   useEffect(() => {
     setData(generateData());
   }, []);
@@ -29,9 +29,9 @@ const BigComponent: React.FC = () => {
   return (
     <Box sx={{ padding: '20px' }}>
       <Typography variant="h4" gutterBottom>
-         Большой компонент
+        Большой компонент
       </Typography>
-      
+
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <Paper sx={{ padding: '20px' }}>

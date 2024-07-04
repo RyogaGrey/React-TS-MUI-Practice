@@ -1,23 +1,7 @@
 import React, { useRef, useEffect } from 'react';
-import { Bar } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register( CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const ChartComponent: React.FC = () => {
   const chartRef = useRef<ChartJS | null>(null);
@@ -37,10 +21,10 @@ const ChartComponent: React.FC = () => {
         borderWidth: 2,
         hoverBackgroundColor: 'rgba(75, 192, 192, 0.4)',
         hoverBorderColor: 'rgba(75, 192, 192, 1)',
-        pointBackgroundColor: 'rgba(75, 192, 192, 1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(75, 192, 192, 1)',
+        // pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+        // pointBorderColor: '#fff',
+        // pointHoverBackgroundColor: '#fff',
+        // pointHoverBorderColor: 'rgba(75, 192, 192, 1)',
       },
     ],
   };
