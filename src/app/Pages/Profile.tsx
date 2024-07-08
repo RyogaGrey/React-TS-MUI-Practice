@@ -16,10 +16,10 @@ import { getFeatureToggles } from '../../utiles/featureToggle';
 const BigComponent = React.lazy(() => import('../../components/BigComponent'));
 
 const Profiles: React.FC = () => {
-  const { t } = useTranslation();
-  const storedTheme = getStoredTheme();
-  const userSettings = getUserSettings();
-  const [theme, setTheme] = useState<'red' | 'gray'>(storedTheme || 'red');
+  const { t } = useTranslation(); // Хук для интернационализации
+  const storedTheme = getStoredTheme(); // Извлеченных сохраненных предпочтений темы - проверить
+  const userSettings = getUserSettings(); // Извлечение настроек пользователя
+  const [theme, setTheme] = useState<'red' | 'gray'>(storedTheme || 'red'); // Для контроля темы
   const [muiTheme, setMuiTheme] = useState(createTheme(theme === 'red' ? redTheme : grayTheme));
   const [tabIndex, setTabIndex] = useState(0);
   const [featureToggles] = useState(getFeatureToggles());
@@ -59,7 +59,7 @@ const Profiles: React.FC = () => {
           <Suspense fallback={<div>Загрузка компонента...</div>}>
             <BigComponent />
             {featureToggles.featureA && <ChartComponent />}
-            <Dashboard />
+            <Dashboard /> 
           </Suspense>
         )}
         {tabIndex === 1 && <UserDashboardSettings settings={userSettings} onChange={handleUserSettingsChange} />}

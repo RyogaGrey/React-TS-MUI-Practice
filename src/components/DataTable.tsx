@@ -1,17 +1,7 @@
-// src/components/DataTable.tsx
-import React, { useState } from 'react';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-  TextField,
-} from '@mui/material';
+import React, { useState, useCallback } from 'react';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, TextField } from '@mui/material';
 
+// Начальные данные для таблицы
 const generateData = (count: number) => {
   return Array.from({ length: count }, (_, i) => ({
     id: i + 1,
@@ -23,15 +13,12 @@ const generateData = (count: number) => {
 const DataTable: React.FC = () => {
   const [data, setData] = useState(generateData(2000));
 
-  // const handleEdit = (id: number, key: string, value: string) => {
-  //   setData(data.map(item => (item.id === id ? { ...item, [key]: value } : item)));
-  // };
-
-  const handleEdit = (id: number, key: string, value: string) => {
+  // Обработки изменений в полях таблицы
+  const handleEdit = useCallback((id: number, key: string, value: string) => {
     setData(prevData =>
       prevData.map(item => (item.id === id ? { ...item, [key]: value } : item))
     );
-  };
+  }, []);
 
   return (
     <TableContainer component={Paper}>

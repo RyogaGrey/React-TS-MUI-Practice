@@ -63,7 +63,7 @@ const ChartComponent: React.FC = () => {
     };
   }, [data1, options]);
 
-  return <canvas id="myChart" />;
+  return <canvas id="char88" />;
 };
 
 export default ChartComponent;
